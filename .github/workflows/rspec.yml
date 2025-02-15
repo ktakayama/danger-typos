@@ -3,12 +3,7 @@ name: rspec
 on: [push]
 
 jobs:
-  setup:
-    uses: ./.github/workflows/setup-typos.yml
-
   rspec:
-    needs: setup
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,6 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install typos
+        uses: ./.github/actions/setup-typos-steps
+
       - name: Install Ruby
         uses: ruby/setup-ruby@v1
         with:
