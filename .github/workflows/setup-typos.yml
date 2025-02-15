@@ -1,0 +1,27 @@
+name: Setup typos
+
+on:
+  workflow_call:
+
+jobs:
+  setup-typos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: ${{ runner.os }}-cargo-typos-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-typos-
+            ${{ runner.os }}-cargo-
+
+      - name: Install typos
+        run: |
+          cargo install typos-cli
+          typos --version
