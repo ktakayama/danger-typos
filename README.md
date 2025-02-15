@@ -24,3 +24,32 @@ typos.run
 ```
 
 
+### GitHub actions
+
+```yaml
+name: Danger
+
+on: [pull_request]
+
+jobs:
+  danger:
+    runs-on: ubuntu-latest
+    if: github.event_name  == 'pull_request'
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+        bundler-cache: true
+
+    - name: Install typos
+      uses: baptiste0928/cargo-install@v3
+      with:
+        crate: typos-cli
+        version: 1.29.7
+
+    - run: bundle exec danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
