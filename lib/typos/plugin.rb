@@ -44,7 +44,8 @@ module Danger
     def cmd_path
       return binary_path if binary_path
 
-      "typos"
+      cmd = File.expand_path("~/.cargo/bin/typos")
+      File.exist?(cmd) ? cmd : "typos"
     end
 
     def target_files
