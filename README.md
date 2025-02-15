@@ -53,3 +53,38 @@ jobs:
         DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+
+### GitHub actions 
+
+directly install typos from binary
+
+```yaml
+name: Danger
+
+on: [pull_request]
+
+jobs:
+  danger:
+    runs-on: ubuntu-latest
+    if: github.event_name  == 'pull_request'
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.4
+        bundler-cache: true
+
+    - name: Install typos
+      run: |
+        wget https://github.com/crate-ci/typos/releases/download/v1.29.7/typos-v1.29.7-x86_64-unknown-linux-musl.tar.gz
+        tar xf typos-v1.29.7-x86_64-unknown-linux-musl.tar.gz
+        mkdir -p $HOME/.cargo/bin
+        mv typos $HOME/.cargo/bin/
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        typos --version
+
+    - run: bundle exec danger
+      env:
+        DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
