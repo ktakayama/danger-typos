@@ -24,7 +24,7 @@ module Danger
     def run
       return if target_files.empty?
 
-      args = ["--format", "json"] + target_files
+      args = ["--force-exclude", "--format", "json"] + target_files
       stdout, = Open3.capture3(cmd_path, *args)
 
       stdout.split("\n").each do |result|
