@@ -5,25 +5,12 @@ runs:
   using: 'composite'
 
   steps:
-    - name: Cache cargo
-      uses: actions/cache@v4
-      with:
-        path: |
-          ~/.cargo/bin/
-          ~/.cargo/registry/index/
-          ~/.cargo/registry/cache/
-          ~/.cargo/git/db/
-        key: ${{ runner.os }}-cargo-typos-${{ hashFiles('**/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-cargo-typos-
-          ${{ runner.os }}-cargo-
-
     - name: Install typos
+      uses: baptiste0928/cargo-install@v3
+      with:
+        crate: typos-cli
+        version: 1.29.7
+
+    - name: Run typos
       shell: bash
-      run: |
-        if ! command -v typos &> /dev/null; then
-          cargo install typos-cli
-        else
-          echo "typos is already installed, skipping installation"
-        fi
-        typos --version
+      run: typos --version
