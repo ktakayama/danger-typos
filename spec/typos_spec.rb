@@ -4,6 +4,8 @@ require File.expand_path("spec_helper", __dir__)
 
 module Danger
   describe Danger::DangerTypos do
+    let(:fixtures_path) { File.expand_path("fixtures", __dir__) }
+
     it "should be a plugin" do
       expect(Danger::DangerTypos.new(nil)).to be_a Danger::Plugin
     end
@@ -17,7 +19,7 @@ module Danger
       context "with a file included no warnings" do
         before do
           allow(@my_plugin).to receive(:target_files).and_return(
-            [File.expand_path("fixtures/no_warnings.txt", __dir__)]
+            [File.join(fixtures_path, "no_warnings.txt")]
           )
         end
 
@@ -33,7 +35,7 @@ module Danger
         let(:expected_message2) { "`Sampl` should be `Sample`" }
         before do
           allow(@my_plugin).to receive(:target_files).and_return(
-            [File.expand_path("fixtures/error.txt", __dir__)]
+            [File.join(fixtures_path, "error.txt")]
           )
         end
 
@@ -43,7 +45,7 @@ module Danger
           expect(@dangerfile.status_report[:warnings]).to eq([expected_message1, expected_message2])
 
           violation_report = @dangerfile.violation_report[:warnings].first
-          expect(violation_report.file).to eq(File.expand_path("fixtures/error.txt", __dir__))
+          expect(violation_report.file).to eq(File.join(fixtures_path, "error.txt"))
           expect(violation_report.line).to eq(1)
           expect(violation_report.message).to eq(expected_message1)
         end
@@ -53,17 +55,18 @@ module Danger
         let(:expected_message) { "`Udate` should be `Update`" }
         before do
           allow(@my_plugin).to receive(:target_files).and_return(
-            [File.expand_path("fixtures/error.txt", __dir__)]
+            [File.join(fixtures_path, "error.txt")]
           )
         end
 
         it "returns error" do
-          @my_plugin.run(config_path: File.expand_path("fixtures/typos_config.toml", __dir__))
+          config_path = File.join(fixtures_path, "typos_config.toml")
+          @my_plugin.run(config_path: config_path)
 
           expect(@dangerfile.status_report[:warnings]).to eq([expected_message])
 
           violation_report = @dangerfile.violation_report[:warnings].first
-          expect(violation_report.file).to eq(File.expand_path("fixtures/error.txt", __dir__))
+          expect(violation_report.file).to eq(File.join(fixtures_path, "error.txt"))
           expect(violation_report.line).to eq(1)
           expect(violation_report.message).to eq(expected_message)
         end
@@ -72,12 +75,13 @@ module Danger
       context "with an excluded file" do
         before do
           allow(@my_plugin).to receive(:target_files).and_return(
-            [File.expand_path("fixtures/exclude_file.txt", __dir__)]
+            [File.join(fixtures_path, "exclude_file.txt")]
           )
         end
 
         it "should not generate any warnings" do
-          @my_plugin.run(config_path: File.expand_path("fixtures/typos_config.toml", __dir__))
+          config_path = File.join(fixtures_path, "typos_config.toml")
+          @my_plugin.run(config_path: config_path)
 
           expect(@dangerfile.status_report[:warnings]).to be_empty
         end
