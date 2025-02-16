@@ -29,6 +29,9 @@ To use a custom config file, set the config_path parameter.
 typos.run config_path: "_typos.toml"
 ```
 
+## Example
+
+<img width="320" src="https://github.com/user-attachments/assets/0fa06466-e945-454e-8d61-73c5cbe8a8ce" />
 
 ### GitHub actions
 
