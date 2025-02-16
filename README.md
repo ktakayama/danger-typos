@@ -23,7 +23,7 @@ typos.binary_path = "path/to/typos"
 typos.run
 ```
 
-If you want to specify a custom config file, you can set a config path to the config_path parameter.
+To use a custom config file, set the config_path parameter.
 
 ```
 typos.run config_path: "_typos.toml"
