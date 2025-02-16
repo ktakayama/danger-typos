@@ -1,2 +1,7 @@
+[files]
+extend-exclude = [
+  "exclude_file.txt"
+]
+
 [default.extend-words]
 Sampl = "Sampl"

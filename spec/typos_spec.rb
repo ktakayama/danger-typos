@@ -68,6 +68,20 @@ module Danger
           expect(violation_report.message).to eq(expected_message)
         end
       end
+
+      context "with an excluded file" do
+        before do
+          allow(@my_plugin).to receive(:target_files).and_return(
+            [File.expand_path("fixtures/exclude_file.txt", __dir__)]
+          )
+        end
+
+        it "should not generate any warnings" do
+          @my_plugin.run(config_path: File.expand_path("fixtures/typos_config.toml", __dir__))
+
+          expect(@dangerfile.status_report[:warnings]).to be_empty
+        end
+      end
     end
   end
 end
