@@ -37,7 +37,7 @@ module Danger
           )
         end
 
-        it "should returns error" do
+        it "returns error" do
           @my_plugin.run
 
           expect(@dangerfile.status_report[:warnings]).to eq([expected_message1, expected_message2])
@@ -57,7 +57,7 @@ module Danger
           )
         end
 
-        it "should returns error" do
+        it "returns error" do
           @my_plugin.run(config_path: File.expand_path("fixtures/typos_config.toml", __dir__))
 
           expect(@dangerfile.status_report[:warnings]).to eq([expected_message])
