@@ -29,6 +29,27 @@ module Danger
       end
 
       context "with a file included some errors" do
+        let(:expected_message1) { "`Udate` should be `Update`" }
+        let(:expected_message2) { "`Sampl` should be `Sample`" }
+        before do
+          allow(@my_plugin).to receive(:target_files).and_return(
+            [File.expand_path("fixtures/error.txt", __dir__)]
+          )
+        end
+
+        it "returns error" do
+          @my_plugin.run
+
+          expect(@dangerfile.status_report[:warnings]).to eq([expected_message1, expected_message2])
+
+          violation_report = @dangerfile.violation_report[:warnings].first
+          expect(violation_report.file).to eq(File.expand_path("fixtures/error.txt", __dir__))
+          expect(violation_report.line).to eq(1)
+          expect(violation_report.message).to eq(expected_message1)
+        end
+      end
+
+      context "with a file containing errors according to config file" do
         let(:expected_message) { "`Udate` should be `Update`" }
         before do
           allow(@my_plugin).to receive(:target_files).and_return(
@@ -36,8 +57,8 @@ module Danger
           )
         end
 
-        it "should returns error" do
-          @my_plugin.run
+        it "returns error" do
+          @my_plugin.run(config_path: File.expand_path("fixtures/typos_config.toml", __dir__))
 
           expect(@dangerfile.status_report[:warnings]).to eq([expected_message])
 
