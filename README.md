@@ -12,20 +12,20 @@
 
 Add this to Dangerfile.
 
-```
+```ruby
 typos.run
 ```
 
 If you want to specify typos bin file, you can set a bin path to the binary_path parameter.
 
-```
+```ruby
 typos.binary_path = "path/to/typos"
 typos.run
 ```
 
 To use a custom config file, set the config_path parameter.
 
-```
+```ruby
 typos.run config_path: "_typos.toml"
 ```
 
