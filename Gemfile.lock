@@ -73,7 +73,7 @@ GEM
     rake (13.2.1)
     rchardet (1.9.0)
     regexp_parser (2.10.0)
-    rexml (3.4.0)
+    rexml (3.4.1)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -108,7 +108,7 @@ GEM
     unicode-display_width (3.1.4)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.0.2)
+    uri (1.0.3)
 
 PLATFORMS
   ruby
