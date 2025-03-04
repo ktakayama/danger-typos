@@ -55,7 +55,7 @@ jobs:
       uses: baptiste0928/cargo-install@v3
       with:
         crate: typos-cli
-        version: 1.29.7
+        version: 1.30.1
 
     - run: bundle exec danger
       env:
@@ -85,8 +85,8 @@ jobs:
 
     - name: Install typos
       run: |
-        wget https://github.com/crate-ci/typos/releases/download/v1.29.7/typos-v1.29.7-x86_64-unknown-linux-musl.tar.gz
-        tar xf typos-v1.29.7-x86_64-unknown-linux-musl.tar.gz
+        wget https://github.com/crate-ci/typos/releases/download/v1.30.1/typos-v1.30.1-x86_64-unknown-linux-musl.tar.gz
+        tar xf typos-v1.30.1-x86_64-unknown-linux-musl.tar.gz
         mkdir -p $HOME/.cargo/bin
         mv typos $HOME/.cargo/bin/
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
