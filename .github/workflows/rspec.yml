@@ -11,7 +11,7 @@ jobs:
         ruby-version: ["3.3", "3.4"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install typos
         uses: ./.github/actions/setup-typos-steps
