@@ -84,9 +84,11 @@ jobs:
         bundler-cache: true
 
     - name: Install typos
+      env:
+        TYPOS_VERSION: 1.36.2
       run: |
-        wget https://github.com/crate-ci/typos/releases/download/v1.36.2/typos-v1.36.2-x86_64-unknown-linux-musl.tar.gz
-        tar xf typos-v1.36.2-x86_64-unknown-linux-musl.tar.gz
+        wget https://github.com/crate-ci/typos/releases/download/v${TYPOS_VERSION}/typos-v${TYPOS_VERSION}-x86_64-unknown-linux-musl.tar.gz
+        tar xf typos-v${TYPOS_VERSION}-x86_64-unknown-linux-musl.tar.gz
         mkdir -p $HOME/.cargo/bin
         mv typos $HOME/.cargo/bin/
         echo "$HOME/.cargo/bin" >> $GITHUB_PATH
